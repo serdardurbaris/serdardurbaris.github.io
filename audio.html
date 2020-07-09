@@ -128,8 +128,7 @@ audi.onplay = function() {
 // Toggle text highlight
 btnToggle.addEventListener("click", function(){
 
-	  var element = document.getElementById("span");
-	  element.classList.remove("active");
+    $('span').removeClass("active");
 	
     if(textHighlightOn){
        textDiv.classList.add('off');
