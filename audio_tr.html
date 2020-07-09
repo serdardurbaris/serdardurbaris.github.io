@@ -1,0 +1,190 @@
+<style>
+body {
+  background: #efefef;
+}
+.text-highlight span.active{
+	background:yellow;
+}
+p{margin:0; padding:0}
+<!-- .text-highlight span.active-prev { -->
+   <!-- background: #fff; -->
+<!-- } -->
+<!-- .text-highlight span.active { -->
+   <!-- background: #03a9f4; -->
+<!-- } -->
+.text-highlight.off span {
+   background: transparent;
+}
+
+</style>
+
+
+<audio id="adi" controls>
+  <source src="charles_bukowski_yalnizlik.mp3"/>
+</audio>
+
+<button id="toggleTxt">Highlight on</button>
+
+<div class="text-highlight">
+
+    <p><span class="word" id="ts4.5">Hiç</span> 
+	<span class="word" id="ts5">yalnız</span> 
+	<span class="word" id="ts5.5">hissetmedim</span> 
+	<span class="word" id="ts6">kendimi.</span> 
+	</p>
+	
+	<p>
+	<span class="word" id="ts7.5">Bir odada</span> 
+	<span class="word" id="ts8.2">tek başıma </span> 
+	<span class="word" id="ts9">kaldım,</span> 
+	<span class="word" id="ts9.6">intiharın</span> 
+	<span class="word" id="ts10.2">eşiğinde.</span>  
+	</p>
+	
+	<p>
+	<span class="word" id="ts12">Kendimi </span>  
+	<span class="word" id="ts13">çok kötü </span>  
+	<span class="word" id="ts14">hissettiğim de oldu, </span>  
+	<span class="word" id="ts15">ama </span>  
+	<span class="word" id="ts15.5">hiçbir zaman </span>  
+	<span class="word" id="ts18">birinin </span>  
+	<span class="word" id="ts18.5">odaya girip </span>  
+	<span class="word" id="ts19.5">kendimi daha iyi </span>  
+	<span class="word" id="ts20.5">hissetmemi </span>  
+	<span class="word" id="ts21">sağlayacağını </span>  
+	<span class="word" id="ts22">düşünmedim </span>  
+	<span class="word" id="ts23">ya da birkaç kişinin. </span>  
+	</p>
+	<p>------------------------------</p>
+	<p>Başka bir deyişle,yalnızlık beni hiçbir zaman rahatsız etmemiştir, </p>
+	
+	<p>Çünkü yalnız kalmaya doyamam. </p>
+	
+	<p>Ben kendimi insan dolu bir odada ya da tezahürat yapan seyircilerle dolu bir tribünde en yalnız hissederim. </p>
+	
+	<p>Ibsen'den bir alıntı yapacağım: "En güçlü insanlar genellikle yalnızdır." </p>
+	
+	<p>Hiçbir zaman içimden, "şuh bir sarışın içeri girip beni düzecek, taşaklarımı ovacak ve kendimi daha iyi hissedeceğim," diye geçirmedim.</p>
+	
+	<p>Hayır, onun hiçbir yararı olmaz. </p>
+	
+	<p>İnsanları bilirsin, "Hey, Cuma akşamı, ne yapacağız? Burda kös kös oturacak mıyız?"</p>
+	
+	<p>Evet, kesinlikle. </p>
+	
+	<p>Çünkü yok dışarıda bir şey. </p>
+	
+	<p>Aptallık sadece. </p>
+	
+	<p>Aptal insanlarla fingirdeyen aptal insanlar. </p>
+	
+	<p>Geceye koşa koşa çıkmak gibi bir ihtiyaç içinde olmadım hiçbir zaman. </p>
+	
+	<p>Barlarda gizlendim, çünkü fabrikalarda gizlenmek istemiyordum. </p>
+	
+	<p>Hepsi bu. Milyonlarca insan adına özür dilerim, ama ben kendimi hiçbir zaman yalnız hissetmedim.</p> 
+	
+	<p>Kendimden hoşnutum. Bildiğim en iyi eğlence kendimim..</p>
+
+	<p>Hadi; bir kadeh daha şarap içelim...</p>
+
+	<p>Charles Bukowski</p>
+
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+var aa=true;
+var textHighlightOn = true,
+    btnToggle = document.getElementById('toggleTxt'),
+    textDiv   =  document.querySelector('.text-highlight')
+    spns = document.querySelectorAll('span'),
+    audi = document.getElementById("adi");
+	
+
+	  word_timings = {
+        'Ok': {start: 0, end:1},
+        'were': {start: 1.1, end: 1.5},
+        'trying': {start: 1.7, end: 2},
+        'this for a': {start: 2.1, end: 2.5}
+      };
+
+	
+	
+	<!-- audi.playbackRate=0.5; -->
+
+<!-- audi.addEventListener("timeupdate", f1); -->
+
+function f1(){
+  
+  // remove all previous actives;
+  <!-- [].forEach.call(spns, function(e){ -->
+      <!-- e.classList.remove('active'); -->
+      <!-- e.classList.remove('active-prev'); -->
+  <!-- }); -->
+
+  var i;  
+  if(aa){
+  for (i = 0 ; i< spns.length ; i++){
+     
+    
+  
+    var time = Number(spns[i].id.slice(2));
+    if(time < audi.currentTime){
+      
+       if (i>0) {
+		
+          spns[i-1].classList.remove('active');        
+       }
+       
+       spns[i].classList.add('active'); 
+      
+    }
+    
+  }
+  }
+}
+
+    $('.word').click(function() {
+	aa = false;
+	var audio =  $('audio').get(0);
+	var vl = $(this).text();
+	     start = word_timings[vl].start,
+        end = word_timings[vl].end;
+		
+		 audio.currentTime = start; 
+		 audio.play(); 
+		 $(audio).on('timeupdate', function() { 
+         if (audio.currentTime > end) {
+           audio.pause(); 
+           $(audio).off('timeupdate'); 
+		   aa=false;
+         } 
+		});
+}); 
+
+audi.onplay = function() {
+    aa = true;
+	audi.addEventListener("timeupdate", f1);
+};
+
+
+
+
+// Toggle text highlight
+btnToggle.addEventListener("click", function(){
+
+    if(textHighlightOn){
+       textDiv.classList.add('off');
+    } else {
+       textDiv.classList.remove('off');
+    }
+
+    this.innerHTML = 'Highlight ' + (textHighlightOn ? 'off ' : ' on');         
+
+    textHighlightOn = !textHighlightOn;
+
+});
+</script>
